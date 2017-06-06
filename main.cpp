@@ -36,6 +36,7 @@ public:
     float deltaV = 0, deltaMass = 0, Vexhaust = 2800, velocity = 1600;
     //Time increments
     double dt = 0.1;
+    int dtcounter = -1;
     
     Lander(){
         cout << "Where would you like to attempt a landing? Enter one: Moon," << endl;
@@ -68,7 +69,7 @@ public:
     }
     
     void numericIntegration(){
-        for(double i = 0; i < dt*100-dt; i += dt){
+        for(double i = 0; i < dt*dtcounter-dt; i += dt){
             //Lander height, velocity, and mass changes
             height = height - velocity*dt;
             if(fuel > 0){
@@ -84,10 +85,18 @@ public:
             velocity += gravity*dt; 
             velocity -= deltaV;
         }
+        time += 10;
+    }
+    
+    void setdt(){
+        for(double i = 0; i < 10; i+= dt){
+            dtcounter ++;
+        }
     }
     
     void run(){
         setLocation();
+        setdt();
         while(height > 0){
             printGame();
             numericIntegration();
