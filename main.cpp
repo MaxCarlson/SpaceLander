@@ -29,18 +29,17 @@ class Lander{
 public:
     //Planet variables set to moon defaults
     long time = 0, height = 200000, radius = 1737100;
-    double gravity = 1.304, g0gravity = 1.622;
+    float gravity = 1.304, g0gravity = 1.622;
     string location = "Moon";
     //Rocket variables
-    int fuel = 8200, throttle = 0, rMass = 2134, velocity = 1600;
-    double deltaV = 0, deltaMass = 0, Vexhaust = 2800;
+    int fuel = 8200, throttle = 0, rMass = 2134;
+    float deltaV = 0, deltaMass = 0, Vexhaust = 2800, velocity = 1600;
     //Time increments
     double dt = 0.1;
     
     Lander(){
         cout << "Where would you like to attempt a landing? Enter one: Moon," << endl;
-        cin >> location;
-        
+        cin >> location;   
     }
     
     void setLocation(){
@@ -50,7 +49,7 @@ public:
             cout << "You are to perform manual landing by controlling engines" << endl;
             cout << "specify fuel burning rate (kgs per second) for each 10 sec " << endl;
             cout << "and try to touch down with safe speed. Good luck!!!" << endl;
-            cout << "Rocket weight: " << rMass+fuel << " kg" << endl;
+            cout << "Rocket total weight: " << rMass+fuel << " kg" << endl;
         }
     }
     
@@ -60,23 +59,39 @@ public:
         cout << "Time" << "   Height(m)" << "   Speed(m/s)" << "   Fuel(kg)" << "   Gravity(m/s^2)" << endl;
         cout << setw(4-timetmp.gcount()) << time; 
         cout << setw(11-heighttmp.gcount())<< height; 
-        cout << setw(11-speedtmp.gcount()) << velocity;
+        cout << setw(11-speedtmp.gcount())<< fixed << setprecision(0) << velocity;
         cout << setw(11-fueltmp.gcount()) << fuel;
-        cout << setw(14) << setprecision(2) << gravity << endl;
+        cout << setw(14) << setprecision(3) << gravity << endl;
         cout << "Burning rate: "; 
         cin >> throttle;
         
     }
     
     void numericIntegration(){
-        //Lander height, velocity, and mass changes
-        height = height - velocity*dt;
-        deltaMass = dt*throttle;
-        deltaV = Vexhaust * deltaMass/(rMass+fuel);
-        fuel -= deltaMass;
-        //Gravity acceleration
-        gravity = g0gravity * (radius*radius) / ((radius+height)*(radius+height));
-        
+        for(double i = 0; i < dt*100-dt; i += dt){
+            //Lander height, velocity, and mass changes
+            height = height - velocity*dt;
+            if(fuel > 0){
+                deltaMass = dt*throttle;
+                deltaV = Vexhaust * deltaMass/(rMass+fuel);
+                fuel -= deltaMass;
+            } else {
+                deltaV = 0;
+            }
+            //Gravity acceleration
+            gravity = g0gravity * (radius*radius) / ((radius+height)*(radius+height));
+            //Increase velocity according to gravity + decrease according to dV
+            velocity += gravity*dt; 
+            velocity -= deltaV;
+        }
+    }
+    
+    void run(){
+        setLocation();
+        while(height > 0){
+            printGame();
+            numericIntegration();
+        }
     }
     
     
@@ -85,9 +100,8 @@ public:
 int main(int argc, char** argv) {
 
     Lander newLanding;
-    newLanding.setLocation();
-    newLanding.printGame();
-    
+    newLanding.run();
+        
     return 0;
 }
 
