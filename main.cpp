@@ -76,7 +76,11 @@ public:
                 deltaMass = dt*throttle;
                 deltaV = Vexhaust * deltaMass/(rMass+fuel);
                 fuel -= deltaMass;
-            } else {
+            } else if (height <= 0) {
+                height = 0;
+                deltaV = 0;
+                break;
+            }else {
                 deltaV = 0;
             }
             //Gravity acceleration
@@ -89,17 +93,29 @@ public:
     }
     
     void setdt(){
+        //Number of steps per 10 second sim calc based on value of dt
+        //Not working with anything other than dt 0.1!!
         for(double i = 0; i < 10; i+= dt){
             dtcounter ++;
         }
     }
     
+    int craterCalculation(){
+        int KE = (rMass+fuel)*(int)velocity^2;
+        
+        
+    }
+    
     void run(){
+        bool run = true;
         setLocation();
         setdt();
-        while(height > 0){
+        while(run){
             printGame();
             numericIntegration();
+            if(height == 0){
+                
+            }
         }
     }
     
@@ -107,7 +123,7 @@ public:
 };
 
 int main(int argc, char** argv) {
-
+    
     Lander newLanding;
     newLanding.run();
         
