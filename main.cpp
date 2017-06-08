@@ -13,7 +13,7 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <math.h>
+#include <math.h>       /* pow */
 #include <string>
 #include <string.h>
 #include <iomanip>
@@ -31,6 +31,8 @@ public:
     long time = 0, height = 200000, radius = 1737100;
     float gravity = 1.304, g0gravity = 1.622;
     string location = "Moon";
+    //Orbital body crater stuff
+    double rocketDiameter = 2.34, rocketDensity = 1.54;
     //Rocket variables
     int fuel = 8200, throttle = 0, rMass = 2134;
     float deltaV = 0, deltaMass = 0, Vexhaust = 2800, velocity = 1600;
@@ -101,8 +103,13 @@ public:
     }
     
     int craterCalculation(){
-        int KE = (rMass+fuel)*(int)velocity^2;
-        
+        if(velocity < 12){
+            cout << "You've successfully landed! Not one person dead!" << endl; 
+            return 0;
+        } else if (velocity < 30){
+            cout << "Any landing you can walk away from is a good one, unfortunately not everyone will be walking away.." << endl;
+            return 0;
+        } 
         
     }
     
@@ -114,7 +121,7 @@ public:
             printGame();
             numericIntegration();
             if(height == 0){
-                
+                craterCalculation();
             }
         }
     }
@@ -125,7 +132,8 @@ public:
 int main(int argc, char** argv) {
     
     Lander newLanding;
-    newLanding.run();
+    //newLanding.run();
+    newLanding.craterCalculation();
         
     return 0;
 }
