@@ -28,7 +28,7 @@ using namespace std;
 class Lander{
 public:
     //Planet variables set to moon defaults
-    long time = 0, height = 200000, radius = 1737100;
+    long  height = 200000, radius = 1737100;
     float gravity = 1.304, g0gravity = 1.622;
     string location = "Moon";
     //Orbital body crater stuff
@@ -37,8 +37,10 @@ public:
     int fuel = 8200, throttle = 0, rMass = 2134;
     float deltaV = 0, deltaMass = 0, Vexhaust = 2800, velocity = 1600;
     //Time increments
-    double dt = 0.1;
+    double dt = 0.1, time = 0;
     int dtcounter = -1;
+    
+    double rockDensity = 2.5100, collapseFactor = 1.0;
     
     Lander(){
         cout << "Where would you like to attempt a landing? Enter one: Moon," << endl;
@@ -60,7 +62,7 @@ public:
         stringstream timetmp, heighttmp, speedtmp, fueltmp;
         timetmp << time; heighttmp << height; speedtmp << velocity; fueltmp << fuel;
         cout << "Time" << "   Height(m)" << "   Speed(m/s)" << "   Fuel(kg)" << "   Gravity(m/s^2)" << endl;
-        cout << setw(4-timetmp.gcount()) << time; 
+        cout << setw(4-timetmp.gcount())<< setprecision(0) << time; 
         cout << setw(11-heighttmp.gcount())<< height; 
         cout << setw(11-speedtmp.gcount())<< fixed << setprecision(0) << velocity;
         cout << setw(11-fueltmp.gcount()) << fuel;
@@ -90,8 +92,9 @@ public:
             //Increase velocity according to gravity + decrease according to dV
             velocity += gravity*dt; 
             velocity -= deltaV;
+            time += dt;
         }
-        time += 10;
+        
     }
     
     void setdt(){
@@ -102,7 +105,7 @@ public:
         }
     }
     
-    int craterCalculation(){
+    float craterCalculation(){
         if(velocity < 12){
             cout << "You've successfully landed! Not one person dead!" << endl; 
             return 0;
@@ -110,7 +113,15 @@ public:
             cout << "Any landing you can walk away from is a good one, unfortunately not everyone will be walking away.." << endl;
             return 0;
         } 
-        
+        //kinetic energy of rocket
+        double KE = 0.5*(rMass+fuel)*(velocity*velocity);
+        //kiloton conversion
+        KE = KE * 0.000000000000239005736138;
+        //impact crater size calculation km
+        float craterDiameter = 0.07*collapseFactor * pow(KE*rocketDensity/rockDensity, 1/3.4);
+        craterDiameter *= 1000;
+        cout << craterDiameter; 
+        return craterDiameter;
     }
     
     void run(){
