@@ -34,8 +34,8 @@ public:
     float gravity = 1.304, g0gravity = 1.622;
     string location = "Moon";
     //Rocket variables
-    int fuel = 8200, throttle = 0, rMass = 2134;
-    float deltaV = 0, deltaMass = 0, Vexhaust = 2800, velocity = 1600;
+    int throttle = 0, rMass = 2134;
+    float deltaV = 0, deltaMass = 0, Vexhaust = 2800, fuel = 8200, velocity = 1600;
     //Time increments
     double dt = 0.1, time = 0;
     int dtcounter = -1;
