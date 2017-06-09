@@ -120,6 +120,7 @@ public:
     }
     
     void printLanding(){
+        cout << endl;
         cout << "Touch down at " << setprecision(1) << time << " seconds" << endl;
         cout << "Landing speed was: " << setprecision(0) << velocity << " m/s" << endl;
         double crater = craterCalculation();
@@ -146,7 +147,7 @@ public:
             if(height == 0){
                 printLanding();
                 cout << endl;
-                cout << "Play again? Press 1";
+                cout << "Play again? Press 1 and ENTER";
                 string enter;
                 cin >> enter; 
                 if(enter == "1"){
