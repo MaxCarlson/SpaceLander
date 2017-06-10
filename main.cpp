@@ -40,22 +40,37 @@ public:
     double dt = 0.1, time = 0;
     int dtcounter = -1;
     //Orbital body crater stuff
-    double rocketDiameter = 2.34, rocketDensity = 1.54, surfaceDensity = 2.5100, collapseFactor = 1.4;
+    double rocketDiameter = 2.34, rocketDensity = 1.54, surfaceDensity = 2.5100, collapseFactor = 1.55;
     
     
     Lander(){
     }
     
     void setLocation(){
-        cout << "Where would you like to attempt a landing? Enter one: Moon," << endl;
+        cout << "Where would you like to attempt a landing? Type one and press ENTER: Moon," << endl;
         cin >> location;
         if(location == "moon" || "Moon"){
+            //moon variables
+            height = 200000;
+            velocity = 1600; g0gravity = 1.622; gravity = 1.304; radius = 1737100; surfaceDensity = 2.5100;
             cout << "You are in a rocket approaching the Moon!" << endl;
             cout << "The main computer failed, your pilot's unconscious!" << endl;
             cout << "You are to perform manual landing by controlling engines" << endl;
             cout << "specify fuel burning rate (kgs per second) for each 10 sec " << endl;
             cout << "and try to touch down with safe speed. Good luck!!!" << endl;
             cout << "Rocket total weight: " << rMass+fuel << " kg" << endl;
+        } else if(location == "Europa" || "europa"){
+            //Europa variables
+            height = 150000;
+            velocity = 2300; g0gravity = 1.314; gravity = 0.34168 ; radius = 1560800; surfaceDensity = 0.9167;
+            cout << "You are in a rocket approaching the Europa!" << endl;
+            cout << "The main computer failed, your pilot's unconscious!" << endl;
+            cout << "You are to perform manual landing by controlling engines" << endl;
+            cout << "specify fuel burning rate (kgs per second) for each 10 sec " << endl;
+            cout << "and try to touch down with safe speed. Good luck!!!" << endl;
+            cout << "Rocket total weight: " << rMass+fuel << " kg" << endl;
+        } else if(location == ""){
+            
         }
     }
     
