@@ -147,7 +147,7 @@ public:
             if(height == 0){
                 printLanding();
                 cout << endl;
-                cout << "Play again? Press 1 and ENTER";
+                cout << "Play again? Press 1 then ENTER";
                 string enter;
                 cin >> enter; 
                 if(enter == "1"){
