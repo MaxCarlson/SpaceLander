@@ -32,10 +32,10 @@ public:
     //Planet variables set to moon defaults
     long  height = 200000, radius = 1737100;
     float gravity = 1.304, g0gravity = 1.622;
-    string location = "Moon";
+    string location;
     //Rocket variables
-    int throttle = 0, rMass = 2134;
-    float deltaV = 0, deltaMass = 0, Vexhaust = 2800, fuel = 8200, velocity = 1600;
+    int rMass = 2134;
+    float throttle = 0, deltaV = 0, deltaMass = 0, Vexhaust = 2800, fuel = 8200, velocity = 1600;
     //Time increments
     double dt = 0.1, time = 0;
     int dtcounter = -1;
@@ -43,34 +43,37 @@ public:
     double rocketDiameter = 2.34, rocketDensity = 1.54, surfaceDensity = 2.5100, collapseFactor = 1.55;
     
     
-    Lander(){
-    }
+    
     
     void setLocation(){
-        cout << "Where would you like to attempt a landing? Type one and press ENTER: Moon," << endl;
+        cout << "Where would you like to attempt a landing?" << endl; 
+        cout << "Type one and press ENTER: Moon, Europa, Titan, Ganymede" << endl;
         cin >> location;
-        if(location == "moon" || "Moon"){
+        
+        if(location == "moon" || location == "Moon"){
             //moon variables
             height = 200000;
-            velocity = 1600; g0gravity = 1.622; gravity = 1.304; radius = 1737100; surfaceDensity = 2.5100;
+            velocity = 1600; g0gravity = 1.622; gravity = 1.304; radius = 1737100; surfaceDensity = 2.510;
             cout << "You are in a rocket approaching the Moon!" << endl;
             cout << "The main computer failed, your pilot's unconscious!" << endl;
             cout << "You are to perform manual landing by controlling engines" << endl;
             cout << "specify fuel burning rate (kgs per second) for each 10 sec " << endl;
             cout << "and try to touch down with safe speed. Good luck!!!" << endl;
             cout << "Rocket total weight: " << rMass+fuel << " kg" << endl;
-        } else if(location == "Europa" || "europa"){
+        } else if(location == "Europa" || location == "europa"){
             //Europa variables
             height = 150000;
-            velocity = 2300; g0gravity = 1.314; gravity = 0.34168 ; radius = 1560800; surfaceDensity = 0.9167;
-            cout << "You are in a rocket approaching the Europa!" << endl;
+            velocity = 2500; g0gravity = 1.314; gravity = 1.0936; radius = 1560800; surfaceDensity = 0.917;
+            cout << "You are in a rocket approaching Europa!" << endl;
             cout << "The main computer failed, your pilot's unconscious!" << endl;
             cout << "You are to perform manual landing by controlling engines" << endl;
             cout << "specify fuel burning rate (kgs per second) for each 10 sec " << endl;
             cout << "and try to touch down with safe speed. Good luck!!!" << endl;
             cout << "Rocket total weight: " << rMass+fuel << " kg" << endl;
-        } else if(location == ""){
-            
+        } else if(location == "Ganymede" || location == "ganymede"){
+            //Ganymede variables
+            height = 250000;
+            velocity = 2500; g0gravity = 1.428; gravity = 1.1911; radius = 2634100; surfaceDensity = 0.990;
         }
     }
     
