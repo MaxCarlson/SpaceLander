@@ -47,7 +47,7 @@ public:
     
     void setLocation(){
         cout << "Where would you like to attempt a landing?" << endl; 
-        cout << "Type one and press ENTER: Moon, Europa, Titan, Ganymede" << endl;
+        cout << "Type one and press ENTER: Moon, Europa, Ganymede." << endl;
         cin >> location;
         
         if(location == "moon" || location == "Moon"){
@@ -58,7 +58,7 @@ public:
             cout << "The main computer failed, your pilot's unconscious!" << endl;
             cout << "You are to perform manual landing by controlling engines" << endl;
             cout << "specify fuel burning rate (kgs per second) for each 10 sec " << endl;
-            cout << "and try to touch down with safe speed. Good luck!!!" << endl;
+            cout << "and try to touch down with safe speed (<12 m/s). Good luck!!!" << endl;
             cout << "Rocket total weight: " << rMass+fuel << " kg" << endl;
         } else if(location == "Europa" || location == "europa"){
             //Europa variables
@@ -68,12 +68,28 @@ public:
             cout << "The main computer failed, your pilot's unconscious!" << endl;
             cout << "You are to perform manual landing by controlling engines" << endl;
             cout << "specify fuel burning rate (kgs per second) for each 10 sec " << endl;
-            cout << "and try to touch down with safe speed. Good luck!!!" << endl;
+            cout << "and try to touch down with safe speed(<12 m/s). Good luck!!!" << endl;
             cout << "Rocket total weight: " << rMass+fuel << " kg" << endl;
         } else if(location == "Ganymede" || location == "ganymede"){
             //Ganymede variables
             height = 250000;
             velocity = 2500; g0gravity = 1.428; gravity = 1.1911; radius = 2634100; surfaceDensity = 0.990;
+            cout << "You are in a rocket approaching Ganymede!" << endl;
+            cout << "The main computer failed, your pilot's unconscious!" << endl;
+            cout << "You are to perform manual landing by controlling engines" << endl;
+            cout << "specify fuel burning rate (kgs per second) for each 10 sec " << endl;
+            cout << "and try to touch down with safe speed(<12 m/s). Good luck!!!" << endl;
+            cout << "Rocket total weight: " << rMass+fuel << " kg" << endl;
+        } else {
+            //moon variables
+            height = 200000;
+            velocity = 1600; g0gravity = 1.622; gravity = 1.304; radius = 1737100; surfaceDensity = 2.510;
+            cout << "You are in a rocket approaching the Moon!" << endl;
+            cout << "The main computer failed, your pilot's unconscious!" << endl;
+            cout << "You are to perform manual landing by controlling engines" << endl;
+            cout << "specify fuel burning rate (kgs per second) for each 10 sec " << endl;
+            cout << "and try to touch down with safe speed (<12 m/s). Good luck!!!" << endl;
+            cout << "Rocket total weight: " << rMass+fuel << " kg" << endl;
         }
     }
     
@@ -145,13 +161,14 @@ public:
         if(velocity < 12){
             cout << "You've successfully landed! Not one person dead! One small step..." << endl; 
         } else if (velocity < 30){
-            cout << "Any landing you can walk away from is a good one, ";
+            cout << "CRASH! Any landing you can walk away from is a good one, ";
             cout << "unfortunately not everyone will be walking away from this one..." << endl;
-            cout << "CRASH! Your landing created a new crater!" << endl;
-            cout << setprecision(0) << crater << " meters wide!" << endl;
+            cout << "Your landing created a new crater!" << endl;
+            cout << setprecision(1) << crater << " meters wide!" << endl;
         } else {
-            cout << "CRASH! Your landing created a new crater" << endl;
-            cout << setprecision(0) << crater << " meters wide!" << endl;
+            cout << "CRASH! Everyone is quite dead." << endl;
+            cout << "Your landing created a new crater" << endl;            
+            cout << setprecision(1) << crater << " meters wide!" << endl;
         }
     }
     
@@ -165,7 +182,7 @@ public:
             if(height == 0){
                 printLanding();
                 cout << endl;
-                cout << "Play again? Press 1 then ENTER";
+                cout << "Play again? Press 1 then ENTER   ";
                 string enter;
                 cin >> enter; 
                 if(enter == "1"){
